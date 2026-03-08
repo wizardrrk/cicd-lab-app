@@ -21,6 +21,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
+                cd app
                 echo "=========================================="
                 echo " Building: ${env.JOB_NAME} #${env.BUILD_NUMBER}"
                 echo " Branch:   ${env.GIT_BRANCH}"
@@ -33,6 +34,7 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 sh '''
+                    cd app
                     pip install --quiet -r requirements.txt
                     pip list | grep -E "Flask|pytest|requests"
                 '''
@@ -43,6 +45,7 @@ pipeline {
             parallel {
                 stage('Unit Tests') {
                     steps {
+                        cd app
                         sh 'python -m pytest tests/ -v --tb=short --junitxml=test-results.xml'
                     }
                     post {
@@ -54,6 +57,7 @@ pipeline {
                 stage('Syntax Check') {
                     steps {
                         sh '''
+                            cd app
                             python -m py_compile app.py
                             echo "Syntax check passed"
                         '''
@@ -62,6 +66,7 @@ pipeline {
                 stage('Dependency Audit') {
                     steps {
                         sh '''
+                            cd app
                             pip install pip-audit --quiet
                             pip-audit --requirement requirements.txt --format text || true
                         '''
