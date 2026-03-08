@@ -1,0 +1,37 @@
+# Python artifacts
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+envs/
+*.env
+
+# Project-specific venv under app
+app/.venv/
+app/.venv/bin/python3
+app/.venv/bin/python3.12
+app/.venv/lib64
+app/.venv/pyvenv.cfg
+
+# Local scripts and runtime files
+app/evn_script.sh
+
+# Test and tooling caches
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Editor/OS files
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
